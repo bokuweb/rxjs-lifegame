@@ -9,7 +9,7 @@ type Field = Cell[][];
 
 const range = (n: number) => Array.from(Array(100).keys());
 
-const fieldFactory = (): Field=> range(100).map(() => range(100).map(() => Math.random() > 0.75));
+const fieldFactory = (): Field => range(100).map(() => range(100).map(() => Math.random() > 0.75));
 
 const renderer = new Renderer();
 renderer.mount(document.getElementById('container'), h('div', [h('button.button', 'start')]));
@@ -50,11 +50,6 @@ const input$ = Rx.Observable
   .delay(new Date(Date.now() + 1000))
 
 const ticker$ = Rx.Observable.interval(500);
-
-const field$ = ticker$
-  .scan((field: Field) => (
-    field.map((raw, i) => raw.map((cell, j) => isAlive(field, i , j)))
-  ), fieldFactory());
 
 const game = Rx.Observable
   .combineLatest(input$, ticker$, (input$) => input$)
