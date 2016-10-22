@@ -19,8 +19,8 @@ const button = document.querySelector('button.button');
 const render = (field: Field ) => {
   const vnode = h('div', [
     h('button.button', 'start/stop'),
-    h('div.field', field.map(raw => (
-      h('div.raw', raw.map(cell => h(`div.cell${cell ? '--active' : ''}`, '')))
+    h('div.field', field.map(row => (
+      h('div.row', row.map(cell => h(`div.cell${cell ? '--active' : ''}`, '')))
     )))
   ]);
   renderer.update(vnode);
@@ -55,6 +55,6 @@ const game = Rx.Observable
   .combineLatest(input$, ticker$, (input$) => input$)
   .filter((started: boolean) => started)
   .scan((field: Field) => (
-    field.map((raw, i) => raw.map((cell, j) => isAlive(field, i , j)))
+    field.map((row, i) => row.map((cell, j) => isAlive(field, i , j)))
   ), fieldFactory())
   .subscribe(render);
