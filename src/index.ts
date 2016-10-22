@@ -7,7 +7,7 @@ import { Renderer, h } from './render';
 type Cell = boolean;
 type Field = Cell[][];
 
-const range = (n: number) => Array.from(Array(100).keys());
+const range = (n: number) => Array.from(Array(n).keys());
 
 const fieldFactory = (): Field => range(100).map(() => range(100).map(() => Math.random() > 0.75));
 
